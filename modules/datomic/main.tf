@@ -143,6 +143,10 @@ data "template_file" "transactor_user_data" {
     license-key            = "${var.datomic_license}"
     cloudwatch_dimension   = "${var.cloudwatch_dimension}"
     memcached_uri          = "${var.memcached_uri}"
+
+    protocol               = "${var.protocol}"
+
+    # For SQL only:
     sql_user               = "${var.sql_user}"
     sql_password           = "${var.sql_password}"
     sql_url                = "${var.sql_url}"

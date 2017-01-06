@@ -9,7 +9,7 @@ variable "system_name" {
 }
 
 variable "transactor_instance_type" {
-  default = "c4.4xlarge"
+  default = "t2.large"
 }
 
 variable "instance_count" {
@@ -17,7 +17,7 @@ variable "instance_count" {
 }
 
 variable "transactor_memory_index_max" {
-  default = "2048m"
+  default = "512m"
 }
 
 variable "transactor_memory_index_threshold" {
@@ -25,11 +25,11 @@ variable "transactor_memory_index_threshold" {
 }
 
 variable "transactor_object_cache_max" {
-  default = "4g"
+  default = "1g"
 }
 
 variable "transactor_xmx" {
-  default = "10g"
+  default = "4g"
 }
 
 variable "datomic_license" {}
@@ -44,11 +44,21 @@ variable "cloudwatch_dimension" {
 
 variable "memcached_uri" {}
 
-variable "sql_user" {}
+variable "protocol" {
+  default = "dev"
+}
 
-variable "sql_password" {}
+variable "sql_user" {
+  default = ""
+}
 
-variable "sql_url" {}
+variable "sql_password" {
+  default = ""
+}
+
+variable "sql_url" {
+  default = ""
+}
 
 variable "ami" {}
 

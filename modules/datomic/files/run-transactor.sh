@@ -6,7 +6,7 @@ export XMX="-Xmx${xmx}"
 cd /datomic/"datomic-pro"
 
 cat <<EOF >aws.properties
-protocol=sql
+protocol=${protocol}
 sql-url=${sql_url}
 sql-user=${sql_user}
 sql-password=${sql_password}
