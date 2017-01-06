@@ -8,7 +8,9 @@ resource "aws_security_group" "internal_inbound" {
     to_port     = 22
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
+
     # ideally
+
     # cidr_blocks = ["10.0.0.0/14"]
   }
 
@@ -26,6 +28,7 @@ resource "aws_security_group" "internal_inbound" {
 
 resource "aws_iam_role" "transactor" {
   name = "transactor"
+
   assume_role_policy = <<EOF
 {
   "Statement": [
@@ -74,7 +77,9 @@ resource "aws_s3_bucket" "transactor_logs" {
   bucket = "${var.system_name}-datomic-logs"
 
   # lifecycle {
+
   #   prevent_destroy = true
+
   # }
 }
 
@@ -109,27 +114,27 @@ resource "aws_iam_instance_profile" "transactor" {
 
 # transactor launch config
 resource "aws_launch_configuration" "transactor" {
-  name_prefix                 = "datomic-"
-  image_id                    = "${var.ami}"
-  instance_type               = "${var.transactor_instance_type}"
-  iam_instance_profile        = "${aws_iam_instance_profile.transactor.name}"
-  security_groups             = ["${aws_security_group.internal_inbound.id}"]
-  user_data                   = "${data.template_file.transactor_user_data.rendered}"
-  key_name                    = "${var.key_name}"
-#  associate_public_ip_address = true
+  name_prefix          = "datomic-transactor-"
+  image_id             = "${var.ami}"
+  instance_type        = "${var.transactor_instance_type}"
+  iam_instance_profile = "${aws_iam_instance_profile.transactor.name}"
+  security_groups      = ["${aws_security_group.internal_inbound.id}"]
+  user_data            = "${data.template_file.transactor_user_data.rendered}"
+  key_name             = "${var.key_name}"
+
+  #  associate_public_ip_address = true
 
   ephemeral_block_device {
     device_name  = "/dev/sdb"
     virtual_name = "ephemeral0"
   }
-
   lifecycle {
     create_before_destroy = true
   }
 }
 
 data "template_file" "transactor_user_data" {
-  template = "${file("${path.module}/files/run-datomic.sh")}"
+  template = "${file("${path.module}/files/run-transactor.sh")}"
 
   vars {
     xmx                    = "${var.transactor_xmx}"
@@ -144,12 +149,12 @@ data "template_file" "transactor_user_data" {
     cloudwatch_dimension   = "${var.cloudwatch_dimension}"
     memcached_uri          = "${var.memcached_uri}"
 
-    protocol               = "${var.protocol}"
+    protocol = "${var.protocol}"
 
     # For SQL only:
-    sql_user               = "${var.sql_user}"
-    sql_password           = "${var.sql_password}"
-    sql_url                = "${var.sql_url}"
+    sql_user     = "${var.sql_user}"
+    sql_password = "${var.sql_password}"
+    sql_url      = "${var.sql_url}"
   }
 }
 
@@ -163,7 +168,7 @@ resource "aws_autoscaling_group" "datomic_asg" {
 
   tag {
     key                 = "Name"
-    value               = "${var.system_name}"
+    value               = "${var.system_name}-transactor"
     propagate_at_launch = true
   }
 

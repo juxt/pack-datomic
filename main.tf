@@ -14,6 +14,9 @@ variable "transactor_key_name" {}
 
 variable "transactor_ami" {}
 
+variable "datomic_protocol" {
+  default = "dev"
+}
 
 # Providers -----------------------------
 
@@ -32,5 +35,6 @@ module "staging_datomic" {
   datomic_license    = "${var.datomic_license}"
   key_name           = "${var.transactor_key_name}"
   ami                = "${var.transactor_ami}"
-  memcached_uri    = ""
+  memcached_uri      = ""
+  protocol           = "${var.datomic_protocol}"
 }

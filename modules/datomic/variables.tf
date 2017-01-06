@@ -44,9 +44,7 @@ variable "cloudwatch_dimension" {
 
 variable "memcached_uri" {}
 
-variable "protocol" {
-  default = "dev"
-}
+variable "protocol" {}
 
 variable "sql_user" {
   default = ""

@@ -1,3 +1,5 @@
 /*.box
 /*.pem
 .terraform
+/proposed.plan
+terraform.tfstate*
