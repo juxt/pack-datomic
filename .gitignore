@@ -3,3 +3,4 @@
 .terraform
 /proposed.plan
 terraform.tfstate*
+todos.org

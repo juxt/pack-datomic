@@ -83,9 +83,10 @@ EOF
 # s3 bucket for the transactor logs
 resource "aws_s3_bucket" "transactor_logs" {
   bucket = "${var.system_name}-datomic-logs"
+  force_destroy = true
 
   lifecycle {
-    prevent_destroy = true
+    create_before_destroy = true
   }
 }
 
@@ -106,6 +107,27 @@ resource "aws_iam_role_policy" "transactor_logs" {
         "arn:aws:s3:::${aws_s3_bucket.transactor_logs.id}",
         "arn:aws:s3:::${aws_s3_bucket.transactor_logs.id}/*"
       ]
+    }
+  ]
+}
+EOF
+}
+
+# policy with complete access to the dynamodb table
+resource "aws_iam_role_policy" "transactor" {
+  name = "dynamo_access"
+  role = "${aws_iam_role.transactor.id}"
+  count = "${var.protocol == "ddb" ? 1 : 0}"
+
+  policy = <<EOF
+{
+  "Statement": [
+    {
+      "Action": [
+        "dynamodb:*"
+      ],
+      "Effect": "Allow",
+      "Resource": "arn:aws:dynamodb:*:${var.aws_account_id}:table/${var.aws_dynamodb_table}"
     }
   ]
 }

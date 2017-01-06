@@ -73,3 +73,7 @@ variable "aws_dynamodb_table" {
 variable "aws_dynamodb_region" {
   default = ""
 }
+
+variable "aws_account_id" {
+  default = ""
+}
