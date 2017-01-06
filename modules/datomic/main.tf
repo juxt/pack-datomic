@@ -21,6 +21,14 @@ resource "aws_security_group" "internal_inbound" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
+  # Need to output S3 logs, TODO LOCK THIS DOWN more
+  egress {
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
   tags {
     Name = "${var.system_name}_transactors"
   }
