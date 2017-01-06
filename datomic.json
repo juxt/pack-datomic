@@ -1,0 +1,26 @@
+{
+    "variables": {
+        "datomic_version": "{{env `DATOMIC_VERSION`}}",
+        "datomic_user": "{{env `DATOMIC_USER`}}",
+        "datomic_password": "{{env `DATOMIC_PASSWORD`}}"
+    },
+    "builders": [{
+        "type": "amazon-ebs",
+        "region": "eu-west-1",
+        "source_ami": "ami-0d77397e",
+        "instance_type": "t2.micro",
+        "ssh_username": "ubuntu",
+        "ami_name": "juxt-datomic-{{user `datomic_version`}}"
+    }],
+    "provisioners": [{
+        "type": "shell",
+        "script": "install-datomic.sh",
+        "environment_vars": [
+            "DATOMIC_VERSION={{user `datomic_version`}}",
+            "DATOMIC_USER={{user `datomic_user`}}",
+            "DATOMIC_PASSWORD={{user `datomic_password`}}"
+        ],
+        "execute_command": "echo 'packer' | sudo -S sh -c '{{ .Vars }} {{ .Path }}'"
+    }],
+    "post-processors": ["vagrant"]
+}
