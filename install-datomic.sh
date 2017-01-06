@@ -12,4 +12,4 @@ apt-get -y install default-jdk
 
 wget --http-user=$DATOMIC_USER --http-password=$DATOMIC_PASSWORD "https://my.datomic.com/repo/com/datomic/datomic-pro/$DATOMIC_VERSION/datomic-pro-$DATOMIC_VERSION.zip" -O "datomic-pro-$DATOMIC_VERSION.zip"
 unzip "datomic-pro-$DATOMIC_VERSION.zip"
-mv "datomic-pro-$${DATOMIC_VERSION}" datomic-pro
+mv "datomic-pro-$DATOMIC_VERSION" datomic-pro
