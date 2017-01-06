@@ -46,6 +46,12 @@ variable "memcached_uri" {}
 
 variable "protocol" {}
 
+variable "ami" {}
+
+variable "key_name" {}
+
+# SQL Only --------------------------------
+
 variable "sql_user" {
   default = ""
 }
@@ -58,6 +64,12 @@ variable "sql_url" {
   default = ""
 }
 
-variable "ami" {}
+# Dynamo Only --------------------------------
 
-variable "key_name" {}
+variable "aws_dynamodb_table" {
+  default = ""
+}
+
+variable "aws_dynamodb_region" {
+  default = ""
+}

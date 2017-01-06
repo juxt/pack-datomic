@@ -84,11 +84,9 @@ EOF
 resource "aws_s3_bucket" "transactor_logs" {
   bucket = "${var.system_name}-datomic-logs"
 
-  # lifecycle {
-
-  #   prevent_destroy = true
-
-  # }
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 # policy with write access to the transactor logs
@@ -136,6 +134,7 @@ resource "aws_launch_configuration" "transactor" {
     device_name  = "/dev/sdb"
     virtual_name = "ephemeral0"
   }
+
   lifecycle {
     create_before_destroy = true
   }
@@ -163,6 +162,10 @@ data "template_file" "transactor_user_data" {
     sql_user     = "${var.sql_user}"
     sql_password = "${var.sql_password}"
     sql_url      = "${var.sql_url}"
+
+    # For Dynamo only:
+    aws_dynamodb_table = "${var.aws_dynamodb_table}"
+    aws_dynamodb_region = "${var.aws_dynamodb_region}"
   }
 }
 
