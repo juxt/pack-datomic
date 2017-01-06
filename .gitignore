@@ -1,2 +1,3 @@
-/packer_amazon-ebs_aws.box
+/*.box
+/*.pem
 .terraform
