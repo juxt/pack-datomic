@@ -1,4 +1,4 @@
 #!/bin/sh
 # Try calling:
 # instance-info <ec2-instance-name> PublicIpAddress
-aws ec2 --output text --query "Reservations[].Instances[].[Tags[?Key=='Name' && Value=='$1']|[0].Value,$2]|[?[0]!=null]" describe-instances
+aws ec2 --output text --query "Reservations[].Instances[].[Tags[?Key=='Name' && Value=='$1']|[0].Value,$2]|[?[0]!=null]" --profile "$3" describe-instances
