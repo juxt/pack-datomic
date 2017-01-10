@@ -1,6 +1,6 @@
 # transactor role. ec2 instances can assume the role of a transactor
 resource "aws_security_group" "datomic_inbound" {
-  name        = "datomic_inbound"
+  name        = "${var.system_name}_datomic_inbound"
   description = "Allow access to Datomic Transactor"
 
   ingress {
