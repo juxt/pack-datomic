@@ -10,7 +10,7 @@
         "source_ami": "ami-0d77397e",
         "instance_type": "t2.micro",
         "ssh_username": "ubuntu",
-        "ami_name": "juxt-datomic-{{user `datomic_version`}}"
+        "ami_name": "juxt-datomic-{{user `datomic_version`}}-{{timestamp}}"
     }],
     "provisioners": [{
         "type": "shell",
