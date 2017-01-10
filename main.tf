@@ -39,12 +39,12 @@ module "staging_datomic" {
   protocol           = "${var.datomic_protocol}"
 
   # Storage Specific SQL:
-  sql_user           = "${var.sql_user}"
-  sql_password       = "${var.sql_password}"
-  sql_url            = "${var.sql_url}"
+  sql_user     = "${var.sql_user}"
+  sql_password = "${var.sql_password}"
+  sql_url      = "${var.sql_url}"
 
   # Storage Specific Dynamo:
-  aws_dynamodb_table = "${var.aws_dynamodb_table}"
+  aws_dynamodb_table  = "${var.aws_dynamodb_table}"
   aws_dynamodb_region = "${var.aws_dynamodb_region}"
-  aws_account_id = "${var.aws_account_id}"
+  aws_account_id      = "${var.aws_account_id}"
 }

@@ -1,6 +1,6 @@
 # transactor role. ec2 instances can assume the role of a transactor
-resource "aws_security_group" "internal_inbound" {
-  name        = "internal_inbound"
+resource "aws_security_group" "datomic_inbound" {
+  name        = "datomic_inbound"
   description = "Allow access to Datomic Transactor"
 
   ingress {
@@ -82,7 +82,7 @@ EOF
 
 # s3 bucket for the transactor logs
 resource "aws_s3_bucket" "transactor_logs" {
-  bucket = "${var.system_name}-datomic-logs"
+  bucket        = "${var.system_name}-datomic-logs"
   force_destroy = true
 
   lifecycle {
@@ -115,8 +115,8 @@ EOF
 
 # policy with complete access to the dynamodb table
 resource "aws_iam_role_policy" "transactor" {
-  name = "dynamo_access"
-  role = "${aws_iam_role.transactor.id}"
+  name  = "dynamo_access"
+  role  = "${aws_iam_role.transactor.id}"
   count = "${var.protocol == "ddb" ? 1 : 0}"
 
   policy = <<EOF
@@ -146,7 +146,7 @@ resource "aws_launch_configuration" "transactor" {
   image_id             = "${var.ami}"
   instance_type        = "${var.transactor_instance_type}"
   iam_instance_profile = "${aws_iam_instance_profile.transactor.name}"
-  security_groups      = ["${aws_security_group.internal_inbound.id}"]
+  security_groups      = ["${aws_security_group.datomic_inbound.id}"]
   user_data            = "${data.template_file.transactor_user_data.rendered}"
   key_name             = "${var.key_name}"
 
@@ -156,7 +156,6 @@ resource "aws_launch_configuration" "transactor" {
     device_name  = "/dev/sdb"
     virtual_name = "ephemeral0"
   }
-
   lifecycle {
     create_before_destroy = true
   }
@@ -186,7 +185,7 @@ data "template_file" "transactor_user_data" {
     sql_url      = "${var.sql_url}"
 
     # For Dynamo only:
-    aws_dynamodb_table = "${var.aws_dynamodb_table}"
+    aws_dynamodb_table  = "${var.aws_dynamodb_table}"
     aws_dynamodb_region = "${var.aws_dynamodb_region}"
   }
 }
