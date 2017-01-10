@@ -35,7 +35,7 @@ resource "aws_security_group" "datomic_inbound" {
 }
 
 resource "aws_iam_role" "transactor" {
-  name = "transactor"
+  name = "${var.system_name}-transactor"
 
   assume_role_policy = <<EOF
 {
