@@ -136,13 +136,13 @@ EOF
 
 # instance profile which assumes the transactor role
 resource "aws_iam_instance_profile" "transactor" {
-  name  = "datomic"
+  name  = "${var.system_name}-datomic-transactor"
   roles = ["${aws_iam_role.transactor.name}"]
 }
 
 # transactor launch config
 resource "aws_launch_configuration" "transactor" {
-  name_prefix          = "datomic-transactor-"
+  name_prefix          = "${var.system_name}-datomic-transactor-"
   image_id             = "${var.ami}"
   instance_type        = "${var.transactor_instance_type}"
   iam_instance_profile = "${aws_iam_instance_profile.transactor.name}"
