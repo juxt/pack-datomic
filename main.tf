@@ -27,7 +27,7 @@ provider "aws" {
 
 # Modules -----------------------------
 
-module "staging_datomic" {
+module "transactor" {
   source             = "./modules/transactor"
   aws_region         = "${var.aws_region}"
   availability_zones = ["${var.availability_zone}"]

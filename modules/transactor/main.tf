@@ -8,10 +8,6 @@ resource "aws_security_group" "datomic_inbound" {
     to_port     = 22
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
-
-    # ideally
-
-    # cidr_blocks = ["10.0.0.0/14"]
   }
 
   ingress {
@@ -21,7 +17,6 @@ resource "aws_security_group" "datomic_inbound" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  # Need to output S3 logs, TODO LOCK THIS DOWN more
   egress {
     from_port   = 443
     to_port     = 443

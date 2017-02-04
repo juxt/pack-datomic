@@ -1,0 +1,23 @@
+= Pack-Datomic
+
+`pack-datomic` provides a https://www.packer.io/[Packer] template to build an Amazon EC2 AMI with the http://www.datomic.com/[Datomic] Transactor pre-baked. When running Packer you supply your https://my.datomic.com[my.datomic.com] credentials and a Datomic version, and then a Packer provisoner will fetch the Datomic JAR file and bake it in to the machine image ready for execution. A motivation of this module is to provide means for Datomic administrators to customise their own AMI image, for example to exert bespoke control over logging and to install monitoring agents onto the machine.
+
+`pack-datomic` also provides a sample Terraform[https://www.terraform.io/] configuration that takes the AMI built by Packer as an input variable.
+
+== Build the Packer AMI.
+
+Replace the ? symbols below and run.
+
+`packer build -var 'datomic_version=?' -var 'datomic_user=?' -var 'datomic_password=? datomic.json`
+
+== Requirements
+
+Packer and Terraform 0.8.
+
+== Overview
+
+The bit we want to pre-bake is the installation and machine configuration prior to running Datomic.
+
+== Acknowledgements
+
+https://libraries.io/github/robert-stuttaford/terraform-example[This was intially bootstrapped using Robert Stutterfords existing Terraform example].
