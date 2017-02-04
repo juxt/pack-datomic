@@ -20,4 +20,4 @@ The bit we want to pre-bake is the installation and machine configuration prior 
 
 == Acknowledgements
 
-https://libraries.io/github/robert-stuttaford/terraform-example[This was intially bootstrapped using Robert Stutterfords existing Terraform example].
+https://github.com/robert-stuttaford/terraform-example[This was intially bootstrapped using Robert Stutterfords existing Terraform example]; this is more in this repository so please have a look.
