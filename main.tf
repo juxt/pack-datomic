@@ -8,6 +8,8 @@ variable "availability_zone" {}
 
 variable "system_name" {}
 
+variable "cidr" {}
+
 variable "datomic_license" {}
 
 variable "transactor_key_name" {}
@@ -32,6 +34,7 @@ module "transactor" {
   aws_region         = "${var.aws_region}"
   availability_zones = ["${var.availability_zone}"]
   system_name        = "${var.system_name}"
+  cidr               = "${var.cidr}"
   datomic_license    = "${var.datomic_license}"
   key_name           = "${var.transactor_key_name}"
   ami                = "${var.transactor_ami}"

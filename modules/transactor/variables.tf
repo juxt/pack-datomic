@@ -8,6 +8,8 @@ variable "system_name" {
   default = "datomic"
 }
 
+variable "cidr" {}
+
 variable "transactor_instance_type" {
   default = "t2.large"
 }

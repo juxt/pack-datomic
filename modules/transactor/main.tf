@@ -14,7 +14,7 @@ resource "aws_security_group" "datomic_inbound" {
     from_port   = 4334
     to_port     = 4334
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["${var.cidr}"]
   }
 
   egress {
