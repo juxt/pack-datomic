@@ -16,10 +16,30 @@ Replace the ? symbols below and run.
 
 See the `sample.tf` for a straightforward Terraform configuration to provision the Datomic Transactor. Terraform also has a [getting started guide](https://www.terraform.io/intro/).
 
+To use this module you need to provide the relevant variables that are declared at the top of `sample.tf`, you can do so either from the command line or from a tf.vars file. Assuming you went ahead and supplied the variables in a `dev.tfvars` file, then the Terraform commands to plan and to subsequenly execute provisioning, would be:
+
+Get the module ready:
+
+....
+terraform get
+....
+
+Make the Terraform plan
+
+....
+terraform plan -var-file=dev.tfvars -out proposed.plan
+....
+
+Execute the plan:
+
+....
+terraform apply proposed.plan
+....
+
 == Requirements
 
 Packer and Terraform 0.8.
 
 == Acknowledgements
 
-https://github.com/robert-stuttaford/terraform-example[This was intially bootstrapped using Robert Stutterfords existing Terraform example]; this is more in this repository so please have a look.
+Before make this library we originally used https://github.com/robert-stuttaford/terraform-example[Robert Stutterford's existing Terraform example]. Please have a look at this repository as it contains extra goodies such as provisining for Memcached and Datadog.
