@@ -1,8 +1,8 @@
 = Pack-Datomic
 
-`pack-datomic` provides a https://www.packer.io/[Packer] template - `datomic.json` - to build an Amazon EC2 AMI with the http://www.datomic.com/[Datomic] Transactor pre-baked. When running Packer you supply your https://my.datomic.com[my.datomic.com] credentials and a Datomic version, and then a Packer provisoner will fetch the Datomic JAR file and bake it in to the machine image ready for execution. A motivation of this module is to provide means for Datomic administrators to customise their own AMI image, for example to exert bespoke control over logging and to install monitoring agents onto the machine.
+`pack-datomic` provides a https://www.packer.io/[Packer] template - `datomic.json` - to build an Amazon EC2 AMI with the http://www.datomic.com/[Datomic] Transactor pre-baked. When running Packer you supply your https://my.datomic.com[my.datomic.com] credentials and a Datomic version, and then a Packer provisioner will fetch the Datomic JAR file and bake it in to the machine image ready for execution. A motivation of this module is to provide means for Datomic administrators to customise their own AMI image, for example to exert bespoke control over logging and to install monitoring agents onto the machine.
 
-`pack-datomic` also provides a sample https://www.terraform.io/[Terraform] configuration that takes the AMI built by Packer as an input variable and builds the transactor into the cloud, along with the necessary constructs such as security groups and IAM roles etc. Care has been taken so that multiple Datomic transactor environments can be provisoned and segragated, so that you can easily rebuild your different development, UAT and production environements without conflict or dependencies.
+`pack-datomic` also provides a sample https://www.terraform.io/[Terraform] configuration that takes the AMI built by Packer as an input variable and builds the transactor into the cloud, along with the necessary constructs such as security groups and IAM roles etc. Care has been taken so that multiple Datomic transactor environments can be provisioned and segregated, so that you can easily rebuild your different environments such as development, UAT and production, without conflict or dependencies.
 
 == Build the Packer AMI.
 
@@ -14,9 +14,9 @@ Replace the ? symbols below and run.
 
 == Terraform
 
-See the `sample.tf` for a straightforward Terraform configuration to provision the Datomic Transactor. Terraform also has a [getting started guide](https://www.terraform.io/intro/).
+See the `sample.tf` for a straightforward Terraform configuration to provision the Datomic Transactor. Terraform also has a https://www.terraform.io/intro/[getting started guide].
 
-To use this module you need to provide the relevant variables that are declared at the top of `sample.tf`, you can do so either from the command line or from a tf.vars file. Assuming you went ahead and supplied the variables in a `dev.tfvars` file, then the Terraform commands to plan and to subsequenly execute provisioning, would be:
+To use this module you need to provide the relevant variables that are declared at the top of `sample.tf`, you can do so either from the command line or from a tf.vars file. Assuming you went ahead and supplied the variables in a `dev.tfvars` file, then the Terraform commands to plan and to subsequently execute provisioning would be:
 
 Get the module ready:
 
@@ -42,4 +42,4 @@ Packer and Terraform 0.8.
 
 == Acknowledgements
 
-Before make this library we originally used https://github.com/robert-stuttaford/terraform-example[Robert Stutterford's existing Terraform example]. Please have a look at this repository as it contains extra goodies such as provisining for Memcached and Datadog.
+Before making this library we originally used https://github.com/robert-stuttaford/terraform-example[Robert Stutterford's existing Terraform example]. Please have a look at this repository as it contains extra goodies such as provisioning for Memcached and Datadog.
