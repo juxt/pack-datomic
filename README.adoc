@@ -1,22 +1,24 @@
 = Pack-Datomic
 
-`pack-datomic` provides a https://www.packer.io/[Packer] template to build an Amazon EC2 AMI with the http://www.datomic.com/[Datomic] Transactor pre-baked. When running Packer you supply your https://my.datomic.com[my.datomic.com] credentials and a Datomic version, and then a Packer provisoner will fetch the Datomic JAR file and bake it in to the machine image ready for execution. A motivation of this module is to provide means for Datomic administrators to customise their own AMI image, for example to exert bespoke control over logging and to install monitoring agents onto the machine.
+`pack-datomic` provides a https://www.packer.io/[Packer] template - `datomic.json` - to build an Amazon EC2 AMI with the http://www.datomic.com/[Datomic] Transactor pre-baked. When running Packer you supply your https://my.datomic.com[my.datomic.com] credentials and a Datomic version, and then a Packer provisoner will fetch the Datomic JAR file and bake it in to the machine image ready for execution. A motivation of this module is to provide means for Datomic administrators to customise their own AMI image, for example to exert bespoke control over logging and to install monitoring agents onto the machine.
 
-`pack-datomic` also provides a sample https://www.terraform.io/[Terraform] configuration that takes the AMI built by Packer as an input variable.
+`pack-datomic` also provides a sample https://www.terraform.io/[Terraform] configuration that takes the AMI built by Packer as an input variable and builds the transactor into the cloud, along with the necessary constructs such as security groups and IAM roles etc. Care has been taken so that multiple Datomic transactor environments can be provisoned and segragated, so that you can easily rebuild your different development, UAT and production environements without conflict or dependencies.
 
 == Build the Packer AMI.
+
+`datomic.json` is the Packer template file for building a Datomic Transactor AMI.
 
 Replace the ? symbols below and run.
 
 `packer build -var 'datomic_version=?' -var 'datomic_user=?' -var 'datomic_password=? datomic.json`
 
+== Terraform
+
+See the `sample.tf` for a straightforward Terraform configuration to provision the Datomic Transactor. Terraform also has a [getting started guide](https://www.terraform.io/intro/).
+
 == Requirements
 
 Packer and Terraform 0.8.
-
-== Overview
-
-The bit we want to pre-bake is the installation and machine configuration prior to running Datomic.
 
 == Acknowledgements
 
