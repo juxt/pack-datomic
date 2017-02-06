@@ -20,7 +20,7 @@ One option is to clone this repository into a working subdirectory of your proje
 
 ....
 module "datomic" {
-  source = "github.com/juxt/pack-datomic//modules/transactor?ref=0.2.1"
+  source = "github.com/juxt/pack-datomic//modules/transactor?ref=0.2.2"
   # Declare variable inputs
   # ...
 }
