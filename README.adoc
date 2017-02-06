@@ -16,6 +16,16 @@ Replace the ? symbols below and run.
 
 See the `sample.tf` for a straightforward Terraform configuration to provision the Datomic Transactor. Terraform also has a https://www.terraform.io/intro/[getting started guide].
 
+One option is to clone this repository into a working subdirectory of your project to start using it. You could also refer to the transactor module directly from Git:
+
+....
+module "datomic" {
+  source = "github.com/juxt/pack-datomic//modules/transactor"
+  # Declare variable inputs
+  # ...
+}
+....
+
 To use this module you need to provide the relevant variables that are declared at the top of `sample.tf`, you can do so either from the command line or from a tf.vars file. Assuming you went ahead and supplied the variables in a `dev.tfvars` file, then the Terraform commands to plan and to subsequently execute provisioning would be:
 
 Get the module ready:
