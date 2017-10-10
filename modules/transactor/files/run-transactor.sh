@@ -28,4 +28,6 @@ license-key=${license-key}
 EOF
 chmod 744 aws.properties
 
-bin/transactor aws.properties
+bin/transactor aws.properties || true
+echo "Transactor process stopped. Shutting down."
+shutdown -h now
