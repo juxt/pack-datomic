@@ -3,6 +3,8 @@ resource "aws_security_group" "datomic_inbound" {
   name        = "${var.system_name}_datomic_inbound"
   description = "Allow access to Datomic Transactor"
 
+  vpc_id  = "${var.vpc_id}"
+
   ingress {
     from_port   = 22
     to_port     = 22
@@ -192,6 +194,7 @@ resource "aws_autoscaling_group" "datomic_asg" {
   max_size             = "${var.instance_count}"
   min_size             = "${var.instance_count}"
   launch_configuration = "${aws_launch_configuration.transactor.name}"
+  vpc_zone_identifier  = ["${var.subnet_ids}"]
 
   tag {
     key                 = "Name"

@@ -8,6 +8,13 @@ variable "system_name" {
   default = "datomic"
 }
 
+variable "vpc_id" {
+}
+
+variable "subnet_ids" {
+  type = "list"
+}
+
 variable "cidr" {}
 
 variable "transactor_instance_type" {
