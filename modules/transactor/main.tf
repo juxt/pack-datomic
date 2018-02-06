@@ -147,7 +147,7 @@ resource "aws_launch_configuration" "transactor" {
   user_data            = "${data.template_file.transactor_user_data.rendered}"
   key_name             = "${var.key_name}"
 
-  #  associate_public_ip_address = true
+  associate_public_ip_address = true
 
   ephemeral_block_device {
     device_name  = "/dev/sdb"
