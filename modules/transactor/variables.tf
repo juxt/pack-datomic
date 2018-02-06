@@ -83,6 +83,14 @@ variable "aws_dynamodb_region" {
   default = ""
 }
 
+variable "aws_dynamodb_read_capacity" {
+  default = 5
+}
+
+variable "aws_dynamodb_write_capacity" {
+  default = 5
+}
+
 variable "aws_account_id" {
   default = ""
 }
