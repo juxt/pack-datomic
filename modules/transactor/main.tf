@@ -110,24 +110,6 @@ resource "aws_iam_role_policy" "transactor_logs" {
 EOF
 }
 
-# dynamodb table
-resource "aws_dynamodb_table" "table" {
-  count          = "${var.protocol == "ddb" ? 1 : 0}"
-  name           = "${var.aws_dynamodb_table}"
-  read_capacity  = "${var.aws_dynamodb_read_capacity}"
-  write_capacity = "${var.aws_dynamodb_write_capacity}"
-  hash_key       = "id"
-
-  attribute {
-    name = "id"
-    type = "S"
-  }
-
-  tags {
-    Name = "${var.system_name}"
-  }
-}
-
 # policy with complete access to the dynamodb table
 resource "aws_iam_role_policy" "transactor" {
   name  = "dynamo_access"
@@ -142,7 +124,7 @@ resource "aws_iam_role_policy" "transactor" {
         "dynamodb:*"
       ],
       "Effect": "Allow",
-      "Resource": "arn:aws:dynamodb:*:${var.aws_account_id}:table/${aws_dynamodb_table.table.name}"
+      "Resource": "arn:aws:dynamodb:*:${var.aws_account_id}:table/${var.aws_dynamodb_table}"
     }
   ]
 }
