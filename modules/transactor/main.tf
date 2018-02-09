@@ -3,6 +3,8 @@ resource "aws_security_group" "datomic_inbound" {
   name        = "${var.system_name}_datomic_inbound"
   description = "Allow access to Datomic Transactor"
 
+  vpc_id  = "${var.vpc_id}"
+
   ingress {
     from_port   = 22
     to_port     = 22
@@ -131,8 +133,8 @@ EOF
 
 # instance profile which assumes the transactor role
 resource "aws_iam_instance_profile" "transactor" {
-  name  = "${var.system_name}-datomic-transactor"
-  roles = ["${aws_iam_role.transactor.name}"]
+  name = "${var.system_name}-datomic-transactor"
+  role = "${aws_iam_role.transactor.name}"
 }
 
 # transactor launch config
@@ -145,7 +147,7 @@ resource "aws_launch_configuration" "transactor" {
   user_data            = "${data.template_file.transactor_user_data.rendered}"
   key_name             = "${var.key_name}"
 
-  #  associate_public_ip_address = true
+  associate_public_ip_address = true
 
   ephemeral_block_device {
     device_name  = "/dev/sdb"
@@ -192,6 +194,7 @@ resource "aws_autoscaling_group" "datomic_asg" {
   max_size             = "${var.instance_count}"
   min_size             = "${var.instance_count}"
   launch_configuration = "${aws_launch_configuration.transactor.name}"
+  vpc_zone_identifier  = ["${var.subnet_ids}"]
 
   tag {
     key                 = "Name"
